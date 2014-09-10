@@ -1,0 +1,45 @@
+<div class="container" ng-hide="form.confirm">
+    <!-- Login form -->
+    <form name="sendForm" class="form-login form-wrapper form-narrow" ng-submit="getQuote()" novalidate>
+        <h3 class="title-divider"><span>Send from Ripple to Dogecoin</span></h3>
+        <div class="form-group">
+            <input type="text" class="form-control email" ng-model="quote.address" placeholder="dogecoin address" required />
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control pull-left" ng-model="quote.amount" placeholder="Amount" style="width:70%" required />
+            <h4 class="pull-right">{{quote.currency}}</h4>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" ng-disabled="sendFrom.$invalid" style="width: 100%">Get Quote</button>
+        </div>
+    </form>
+    <div ng-show="errors.length > 0">
+        <ul ng-repeat="error in errors">
+            <li>{{error.message}}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container" ng-show="form.confirm">
+
+    <div class="form-login form-wrapper form-narrow">
+        <h3 class="title-divider"><span>Review Transaction</span></h3>
+        <p class="text-center">Send <strong>{{ quoteResponse.destination_amount.amount }} {{ quoteResponse.destination_amount.currency }}</strong> to
+            <strong>{{ quoteResponse.destination_address.address }}</strong> with a destination tag <strong>{{ quoteResponse.destination_address.tag }}</strong> on Ripple
+            <br/>
+            <br/>
+             and
+            <br/>
+            <br/>
+            <strong>{{ quote.address }}</strong> will receive
+            <strong>{{ quote.amount }} {{ quote.currency }}</strong> on Dogecoin.
+        </p>
+        <p>
+            <a target="_blank" href="{{payment_uri}}" style="width: 100%" class="btn btn-primary">Send with Ripple</a>
+        </p>
+    </div>
+
+</div>
