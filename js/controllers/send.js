@@ -1,13 +1,13 @@
 rippleGatewayApp.controller('xrpToDog', ['$scope', 'ApiService', 'Utils', function($scope, $api, $utils){
   $scope.errors = [];
-
+  var bridgePrefix = 'dogecoin:';
   function handleError(error) {
     $scope.errors.push(error);
   }
 
   $scope.quote = {
-    amount: 10,
-    address: 'dogecoin:DG5y212uDmBcQDHFG8bXw1AN6gTpSRegvZ',
+    amount: null,
+    address: null,
     currency: 'DOG'
   };
 
@@ -19,6 +19,7 @@ rippleGatewayApp.controller('xrpToDog', ['$scope', 'ApiService', 'Utils', functi
   $scope.form.confirm = false;
 
   $scope.getQuote = function() {
+    $scope.quote.address = bridgePrefix.concat($scope.quote.address);
     $api.getQuote($scope.quote, function(error, response){
       if (error) {
         return handleError(error);
@@ -38,14 +39,14 @@ rippleGatewayApp.controller('xrpToDog', ['$scope', 'ApiService', 'Utils', functi
 
 rippleGatewayApp.controller('dogToXrp', ['$scope', 'ApiService', 'Utils', function($scope, $api, $utils){
   $scope.errors = [];
-
+  var bridgePrefix = 'ripple:';
   function handleError(error) {
     $scope.errors.push(error);
   }
 
   $scope.quote = {
-    amount: 11,
-    address: 'ripple:rMinhWxZz4jeHoJGyddtmwg6dWhyqQKtJz',
+    amount: null,
+    address: null,
     currency: 'DOG'
   };
 
@@ -58,6 +59,7 @@ rippleGatewayApp.controller('dogToXrp', ['$scope', 'ApiService', 'Utils', functi
   $scope.form.confirm = false;
 
   $scope.getQuote = function() {
+    $scope.quote.address = bridgePrefix.concat($scope.quote.address);
     $api.getQuote($scope.quote, function(error, response){
       if (error) {
         return handleError(error);
